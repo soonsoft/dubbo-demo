@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 提供方应用名称信息，这个相当于起一个名字，我们dubbo管理页面比较清晰是哪个应用暴露出来的，用于计算依赖关系 -->
+    <dubbo:application name="soon.dubbo.demo" />
+
+    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <!-- <dubbo:registry address="zookeeper://192.168.192.81:2181" check="false" subscribe="false" register="" /> -->
+    <dubbo:registry address="${registry.address}" check="false" subscribe="true" />
+    <!-- <dubbo:monitor protocol="registry" /> -->
+
+    <!-- 通信端口 -->
+    <dubbo:protocol name="dubbo" host="${local.host}" port="${local.port}" />
+
+    <dubbo:provider timeout="${provider.timeout}" retries="${provider.retries}" threads="${provider.threads}"
+                    filter="dubboResponseFilter" />
+
+    <!-- 暴露的服务 -->
+    <dubbo:service
+            interface="soon.demo.services.api.ICalculator"
+            ref="calculator"
+            cluster="failover"
+            version="${provider.version}"
+            loadbalance="leastactive" />
+    <bean id="calculator" class="soon.demo.dubbo.services.DubboCalculator" />
+
+</beans>
