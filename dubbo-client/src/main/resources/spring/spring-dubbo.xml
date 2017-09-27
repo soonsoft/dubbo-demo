@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 提供方应用名称信息，这个相当于起一个名字，我们dubbo管理页面比较清晰是哪个应用暴露出来的，用于计算依赖关系 -->
+    <dubbo:application name="soon.dubbo.demo.client" />
+
+    <!-- zookeeper注册中心地址 -->
+    <dubbo:registry address="${registry.address}"/>
+    <!-- 通信端口 -->
+    <dubbo:protocol name="dubbo"/>
+
+    <!--
+    <dubbo:consumer filter="orderOutFilter" />
+    -->
+
+    <!-- 要引用的服务 -->
+    <dubbo:reference id="calculator" interface="soon.demo.services.api.ICalculator" version="1.0.0"/>
+
+</beans>
