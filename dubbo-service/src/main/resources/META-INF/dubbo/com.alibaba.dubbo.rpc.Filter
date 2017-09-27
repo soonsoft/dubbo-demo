@@ -1,0 +1,2 @@
+dubboRequestFilter=soon.demo.dubbo.filters.DubboRequestFilter
+dubboResponseFilter=soon.demo.dubbo.filters.DubboResponseFilter
