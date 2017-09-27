@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/context
+					    http://www.springframework.org/schema/context/spring-context.xsd
+					    http://www.springframework.org/schema/aop
+					    http://www.springframework.org/schema/aop/spring-aop.xsd
+					    http://www.springframework.org/schema/beans
+					    http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName"
+       default-lazy-init="true">
+
+    <!-- 将多个配置文件位置放到列表中 -->
+    <bean id="propertyResources" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <value>classpath:config/app.properties</value>
+                <value>classpath:config/dubbo.properties</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <!-- 将多个配置文件读取到容器中，交给Spring管理 -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="locations" ref="propertyResources"/>
+    </bean>
+    <bean id="propertiesManager" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="fileEncoding" value="UTF-8"/>
+        <property name="locations" ref="propertyResources"/>
+    </bean>
+
+    <!-- 自动扫描指定的包及其所有子包下标识有以下注解的类，并将这些类自动注册为Spring Bean的类
+         @Component:通用的构造型注解，标识该类为Spring组件
+　　　　  @Controller:标识该类定义为Spring MVC controller
+　　　　　@Repository:标识将该类定义为数据仓库
+　　　　　@Service:标识将该类定义为服务 -->
+    <context:component-scan base-package="soon.demo.services"/>
+</beans>
