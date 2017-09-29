@@ -36,7 +36,7 @@
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 
-		<encoder class="com.huawei.vmall.core.log.LogPatternLayoutEncoder">
+		<encoder class="com.soon.vma.core.log.LogPatternLayoutEncoder">
 			<immediateFlush>false</immediateFlush>
 			<idleTimeForceFlush>3000</idleTimeForceFlush>
 			<!--格式化输出：%d表示日期，%-5level：日志级别从左显示5个字符宽度，%id表示traceID(业务扩展的)，%msg：日志消息，%logger：日志的类名， %n：换行符 -->
@@ -46,7 +46,7 @@
 	</appender>
 
 	<!-- 异步输出 -->
-	<appender name="APP_ASYNC" class="com.huawei.vmall.core.log.VmallAsyncAppender">
+	<appender name="APP_ASYNC" class="com.soon.vma.core.log.VmaAsyncAppender">
 		<!-- 不丢失日志.默认的,否则如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
 		<discardingThreshold>0</discardingThreshold>
 		<!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
