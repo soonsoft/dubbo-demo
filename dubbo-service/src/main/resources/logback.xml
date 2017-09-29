@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder charset="UTF-8">
+			<pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %5p %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${user.home}/logs/consolelogs/rocketmq-console.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${user.home}/logs/consolelogs/rocketmq-console-%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>104857600</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<MaxHistory>10</MaxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %5p %m%n</pattern>
+			<charset class="java.nio.charset.Charset">UTF-8</charset>
+		</encoder>
+	</appender>
+  
+  <!-- 按照每天生成日志文件 -->
+	<appender name="APP_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${work.home}/logs/order.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- 每天滚动 -->
+			<fileNamePattern>${work.home}/logs/backup/order.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<!-- 每个日志文件最多100M，最多保留30天的日志 -->
+			<maxFileSize>100MB</maxFileSize>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+
+		<encoder class="com.huawei.vmall.core.log.LogPatternLayoutEncoder">
+			<immediateFlush>false</immediateFlush>
+			<idleTimeForceFlush>3000</idleTimeForceFlush>
+			<!--格式化输出：%d表示日期，%-5level：日志级别从左显示5个字符宽度，%id表示traceID(业务扩展的)，%msg：日志消息，%logger：日志的类名， %n：换行符 -->
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}|%-5level|%id|%msg|%logger%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<!-- 异步输出 -->
+	<appender name="APP_ASYNC" class="com.huawei.vmall.core.log.VmallAsyncAppender">
+		<!-- 不丢失日志.默认的,否则如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
+		<discardingThreshold>0</discardingThreshold>
+		<!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
+		<queueSize>512</queueSize>
+		<!-- 添加附加的appender,最多只能添加一个 -->
+		<appender-ref ref="APP_LOG" />
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</root>
+
+</configuration> 
