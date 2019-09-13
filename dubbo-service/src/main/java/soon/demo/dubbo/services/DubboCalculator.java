@@ -5,9 +5,6 @@ import soon.demo.services.api.ICalculator;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 
-/**
- * Created by zWX458959 on 2017/9/27.
- */
 public class DubboCalculator implements ICalculator {
 
     @Resource
