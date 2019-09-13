@@ -5,9 +5,6 @@ import soon.demo.services.api.ICalculator;
 
 import java.math.BigDecimal;
 
-/**
- * Created by zWX458959 on 2017/9/27.
- */
 public class CalculatorCaller {
 
     public static void main(String[] args) {
