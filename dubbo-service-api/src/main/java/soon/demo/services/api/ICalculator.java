@@ -2,9 +2,6 @@ package soon.demo.services.api;
 
 import java.math.BigDecimal;
 
-/**
- * Created by zWX458959 on 2017/9/27.
- */
 public interface ICalculator {
 
     BigDecimal add(BigDecimal num1, BigDecimal num2);
