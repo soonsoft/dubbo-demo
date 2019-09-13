@@ -2,9 +2,6 @@ package soon.demo;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-/**
- * Created by zWX458959 on 2017/9/27.
- */
 public class Starter {
 
     private static ClassPathXmlApplicationContext context;
