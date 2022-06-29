@@ -16,7 +16,7 @@
 
     <properties>
         <spring.version>4.3.10.RELEASE</spring.version>
-        <zookeeper.version>3.4.9</zookeeper.version>
+        <zookeeper.version>3.4.14</zookeeper.version>
         <zkclient.version>0.10</zkclient.version>
         <dubbo.version>2.5.5</dubbo.version>
         <logback.version>1.2.3</logback.version>
